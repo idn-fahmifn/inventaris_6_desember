@@ -139,8 +139,16 @@ class ItemController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $data = Item::findOrFail($id);
+        $data_lama = 'public/images/items/' . $data->image;
+
+        if ($data->image && Storage::exists($data_lama)) {
+            Storage::delete($data_lama);
+        }
+        $data->delete();
+        return redirect()->route('item.index')->with('success', 'Product Deleted');
+
     }
 }

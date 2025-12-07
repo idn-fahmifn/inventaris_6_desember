@@ -12,25 +12,25 @@
                 
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border-l-4 border-indigo-500 hover:shadow-xl transition duration-300">
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Semua Aset</p>
-                    <p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">1,250</p>
+                    <p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">{{ $total_item }}</p>
                     <p class="text-xs text-indigo-600 dark:text-indigo-400 mt-2">Termasuk semua kondisi</p>
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border-l-4 border-green-500 hover:shadow-xl transition duration-300">
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Aset Kondisi Baik</p>
-                    <p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">980</p>
+                    <p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">{{$kondisi_baik}}</p>
                     <p class="text-xs text-green-600 dark:text-green-400 mt-2">+5 dalam 7 hari terakhir</p>
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border-l-4 border-red-500 hover:shadow-xl transition duration-300">
-                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Aset Rusak / Perbaikan</p>
-                    <p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">125</p>
+                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Perbaikan / Rusak</p>
+                    <p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">{{$maintenance}} / {{$kondisi_rusak}} </p>
                     <p class="text-xs text-red-600 dark:text-red-400 mt-2">Prioritas Cepat!</p>
                 </div>
 
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border-l-4 border-yellow-500 hover:shadow-xl transition duration-300">
                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Ruangan Terdaftar</p>
-                    <p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">45</p>
+                    <p class="text-3xl font-bold text-gray-900 dark:text-white mt-1">{{ $room }}</p>
                     <p class="text-xs text-yellow-600 dark:text-yellow-400 mt-2">Data Master</p>
                 </div>
             </div>
