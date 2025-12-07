@@ -6,6 +6,7 @@ use App\Models\Room;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class RoomController extends Controller
 {
@@ -43,7 +44,7 @@ class RoomController extends Controller
             'room_code' => $request->input('room_code'),
             'user_id' => $request->input('user_id'),
             'description' => $request->input('description'),
-            'slug' => $request->input('room_code').'-'.Str::slug($request->input('room_name')).'-'.random_int(0000,9999)
+            'slug' => $request->input('room_code') . '-' . Str::slug($request->input('room_name')) . '-' . random_int(0000, 9999)
             //001-nama-ruangan-
         ];
 
@@ -73,9 +74,24 @@ class RoomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $data = Room::findOrFail($id);
+        $request->validate([
+            'room_name' => ['required', 'string', 'min:5', 'max:50'],
+            'room_code' => ['required', 'numeric', 'min:0', 'max:9999', Rule::unique('rooms')->ignore($data->id)],
+            'description' => ['required']
+        ]);
+
+        $simpan = [
+            'room_name' => $request->input('room_name'),
+            'room_code' => $request->input('room_code'),
+            'user_id' => $request->input('user_id'),
+            'description' => $request->input('description'),
+            'slug' => $request->input('room_code') . '-' . Str::slug($request->input('room_name')) . '-' . random_int(0000, 9999)
+        ];
+        $data->update($simpan);
+        return redirect()->route('room.index')->with('success', 'Data berhasil disimpan');
     }
 
     /**

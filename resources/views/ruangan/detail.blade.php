@@ -18,7 +18,7 @@
                                 <p class="text-md text-gray-900 dark:text-gray-400 mt-2">
                                     Kode Ruangan : <span class="font-bold">{{ $data->room_code }}</span>
                                 </p>
-                                
+
                                 <p class="text-md text-gray-900 dark:text-gray-400 mt-2">
                                     Deskripsi : <span class="font-bold">{{ $data->description }}</span>
                                 </p>
@@ -49,47 +49,37 @@
     </div>
 
     <x-modal name="show-edit" :show="$errors->userDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('room.edit', $data->id) }}" class="p-6">
+        <form method="post" action="{{ route('room.update', $data->id) }}" class="p-6">
             @csrf
             @method('put')
             <div>
-                <x-input-label for="nama_ruangan" :value="__('Nama Ruangan')" />
-                <x-text-input id="nama_ruangan" name="nama_ruangan" type="text" class="mt-1 block w-full"
-                    :value="old('nama_ruangan', $data->nama_ruangan)" required autofocus autocomplete="nama_ruangan" />
-                <x-input-error class="mt-2" :messages="$errors->get('nama_ruangan')" />
+                <x-input-label for="room_name" :value="__('Nama Ruangan')" />
+                <x-text-input id="room_name" class="block mt-1 w-full" type="text" value="{{ $data->room_name }}" name="room_name"
+                    required autofocus autocomplete="room_name" />
+                <x-input-error :messages="$errors->get('room_name')" class="mt-2" />
             </div>
-
             <div>
-                <x-input-label for="user_id" :value="__('Penanggung Jawab Ruangan')" />
-                <select name="user_id" required
-                    class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
-                    id="">
-                    <option value="{{ $data->id_user }}">{{ $data->user->name }}</option>
+                <x-input-label for="user_id" :value="__('Penganggung Jawab Ruangan')" />
+                <select name="user_id"
+                    class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                    <option value="{{ $data->user_id }}">{{ $data->user->name }}</option>
                     @foreach ($pic as $item)
-                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                        <option value="{{ $item->id }}"> {{ $item->name }} </option>
                     @endforeach
                 </select>
-                <x-input-error class="mt-2" :messages="$errors->get('id_user')" />
+                <x-input-error :messages="$errors->get('user_id')" class="mt-2" />
             </div>
-
             <div>
-                <x-input-label for="ukuran" :value="__('Ukuran Ruangan')" />
-                <select name="ukuran" required
-                    class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
-                    id="">
-                    <option value="{{ $data->ukuran }}">{{ $data->ukuran }}</option>
-                    <option value="kecil">Kecil</option>
-                    <option value="sedang">Sedang</option>
-                    <option value="besar">Besar</option>
-                </select>
-                <x-input-error class="mt-2" :messages="$errors->get('ukuran')" />
+                <x-input-label for="room_code" :value="__('Kode Ruangan')" />
+                <x-text-input id="room_code" class="block mt-1 w-full" type="number" name="room_code" value="{{ $data->room_code }}"
+                    required autofocus autocomplete="room_code" />
+                <x-input-error :messages="$errors->get('room_code')" class="mt-2" />
             </div>
-
             <div>
-                <x-input-label for="name" :value="__('Deskripsi Ruangan')" />
-                <textarea name="deskripsi"
-                    class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">{{ $data->deskripsi }}</textarea>
-                <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                <x-input-label for="description" :value="__('Deskripsi')" />
+                <textarea id="deskripsi_r" name="description"
+                    class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">{{ $data->description }}</textarea>
+                <x-input-error :messages="$errors->get('description')" class="mt-2" />
             </div>
 
             <div class="mt-6 flex justify-end">
