@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
-use Illuminate\Foundation\Auth\User;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -19,6 +20,15 @@ class RoomController extends Controller
         $pic = User::where('is_admin', false)->get();
         return view('ruangan.index', compact('data', 'pic'));
     }
+
+    public function indexPetugas()
+    {
+        $data = Room::where('user_id', Auth::user()->id)->get(); //mengambil ruangan sesuai dengan yang dipilih.
+        return view('petugas.ruangan', compact('data'));
+    }
+    
+
+
 
     /**
      * Show the form for creating a new resource.
