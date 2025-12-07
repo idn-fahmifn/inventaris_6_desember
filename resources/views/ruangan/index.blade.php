@@ -29,6 +29,9 @@
                                     Kode Ruangan</th>
                                 <th
                                     class="px-6 py-3 text-left text-md font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                    Penanggung Jawab</th>
+                                <th
+                                    class="px-6 py-3 text-left text-md font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                     Aksi</th>
                             </tr>
                         </thead>
@@ -36,9 +39,11 @@
                             @forelse ($data as $item)
                                 <tr>
                                     <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400">
-                                        {{ $item->name }}</td>
+                                        {{ $item->room_name }}</td>
                                     <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400">
-                                        {{ $item->email }}</td>
+                                        {{ $item->room_code }}</td>
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                        {{ $item->user->name }}</td>
                                     <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400">button
                                     </td>
                                 </tr>
