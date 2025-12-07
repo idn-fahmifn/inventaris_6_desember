@@ -24,15 +24,18 @@
                                     Kondisi :
                                     @switch($data->status)
                                         @case('good')
-                                            <span class="text-green-600 font-semibold rounded-md text-xs bg-white py-1 px-4">Baik</span>
+                                            <span
+                                                class="text-green-600 font-semibold rounded-md text-xs bg-white py-1 px-4">Baik</span>
                                         @break
 
                                         @case('maintenance')
-                                            <span class="text-yellow-600 font-semibold rounded-md text-xs bg-white py-1 px-4">Perbaikan</span>
+                                            <span
+                                                class="text-yellow-600 font-semibold rounded-md text-xs bg-white py-1 px-4">Perbaikan</span>
                                         @break
 
                                         @default
-                                            <span class="text-red-600 font-semibold rounded-md text-xs bg-white py-1 px-4">Perbaikan</span>
+                                            <span
+                                                class="text-red-600 font-semibold rounded-md text-xs bg-white py-1 px-4">Rusak</span>
                                     @endswitch
                                 </p>
 
@@ -45,8 +48,12 @@
                                 <form action="{{ route('item.destroy', $data->id) }}" method="post" class="py-6">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" onclick="return confirm('Yakin mau dihapus?')"
-                                        class="rounded-md bg-red-500 px-2.5 py-1.5 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20">Hapus</button>
+
+                                    @if (Auth::user()->is_admin)
+                                        <button type="submit" onclick="return confirm('Yakin mau dihapus?')"
+                                            class="rounded-md bg-red-500 px-2.5 py-1.5 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20">Hapus</button>
+                                    @endif
+
                                     <button x-data=""
                                         x-on:click.prevent="$dispatch('open-modal', 'show-edit')"
                                         class="rounded-md bg-yellow-500 px-2.5 py-1.5 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20">Edit</button>
@@ -58,17 +65,14 @@
                 </div>
             </div>
         </div>
-
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4">
-            <div class="bg-white dark:bg-slate-800 overflow-hidden shadow-sm sm:rounded-lg p-4">
-
-            </div>
-
-        </div>
     </div>
 
     <x-modal name="show-edit" :show="$errors->userDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('item.update', $data->id) }}" enctype="multipart/form-data" class="p-6">
+        <form method="post"
+            action="
+
+        @if (Auth::user()->is_admin) {{ route('item.update', $data->id) }}
+            @else {{ route('petugas.update.item', $data->id) }} @endif" enctype="multipart/form-data" class="p-6">
             @csrf
             @method('put')
 
@@ -76,7 +80,7 @@
                 <div>
                     <x-input-label for="item_name" :value="__('Nama Barang')" />
                     <x-text-input id="item_name" class="block mt-1 w-full" type="text" name="item_name"
-                        value="{{$data->item_name}}" required autofocus autocomplete="item_name" />
+                        value="{{ $data->item_name }}" required autofocus autocomplete="item_name" />
                     <x-input-error :messages="$errors->get('item_name')" class="mt-2" />
                 </div>
                 <div>
@@ -103,8 +107,8 @@
                 </div>
                 <div>
                     <x-input-label for="item_code" :value="__('Kode Barang')" />
-                    <x-text-input id="item_code" value="{{ $data->item_code }}" class="block mt-1 w-full" type="number" name="item_code"
-                         required autofocus autocomplete="item_code" />
+                    <x-text-input id="item_code" value="{{ $data->item_code }}" class="block mt-1 w-full"
+                        type="number" name="item_code" required autofocus autocomplete="item_code" />
                     <x-input-error :messages="$errors->get('item_code')" class="mt-2" />
                 </div>
                 <div>
@@ -116,7 +120,7 @@
                 <div>
                     <x-input-label for="image" :value="__('Gambar')" />
                     <x-text-input id="image" class="block mt-1 w-full border p-6" type="file" name="image"
-                         accept="image/*" autofocus autocomplete="image" />
+                        accept="image/*" autofocus autocomplete="image" />
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
                 <div>

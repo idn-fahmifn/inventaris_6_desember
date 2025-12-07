@@ -78,6 +78,13 @@ class ItemController extends Controller
         return view('barang.detail', compact('data', 'room'));
     }
 
+    public function showPetugas($param)
+    {
+        $data = Item::where('slug', $param)->firstOrFail();
+        $room = Room::all();
+        return view('barang.detail', compact('data', 'room'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -90,6 +97,53 @@ class ItemController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
+    {
+
+        $data = Item::findOrFail($id);
+        $request->validate([
+            'item_name' => ['required', 'string', 'min:3', 'max:30'],
+            'room_id' => ['required', 'integer', Rule::exists('rooms', 'id')],
+            'item_code' => ['required', 'numeric', 'min:0', 'max:9999', Rule::unique('items')->ignore($data->id)],
+            'date_purchase' => ['required'],
+            'image' => ['file', 'mimes:png,jpg,jpeg,svg,webp,heic'],
+            'description' => ['required'],
+            'status' => ['required', 'in:good,maintenance,broke']
+        ]);
+        // data yang harus disimpan : disesuaikan dengan database
+        $simpan = [
+            'item_name' => $request->input('item_name'),
+            'room_id' => $request->input('room_id'),
+            'item_code' => $request->input('item_code'),
+            'date_purchase' => $request->input('date_purchase'),
+            'description' => $request->input('description'),
+            'status' => $request->input('status'),
+            'slug' => Str::slug($request->item_name) . random_int(0, 9999) // illuminate\support
+        ];
+        // kondisi saat ada nilai input file gambar
+        if ($request->hasFile('image')) {
+
+            $data_lama = 'public/images/items/' . $data->image;
+
+            if ($data->image && Storage::exists($data_lama)) {
+                Storage::delete($data_lama);
+            }
+
+
+            $gambar = $request->file('image');
+            $path = 'public/images/items';
+            $ext = $gambar->getClientOriginalExtension();
+            $nama = 'my_items_' . Carbon::now('Asia/jakarta')->format('Ymdhis') . '.' . $ext; //myproduct_20251206103450.png
+            $simpan['image'] = $nama;
+            // menyimpan gambar ke storage : 
+            $gambar->storeAs($path, $nama);
+        }
+
+        $data->update($simpan);
+
+        return redirect()->route('item.index')->with('success', 'Product Created');
+    }
+
+    public function updatePetugas(Request $request, $id)
     {
 
         $data = Item::findOrFail($id);
