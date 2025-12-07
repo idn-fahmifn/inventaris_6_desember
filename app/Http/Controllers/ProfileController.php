@@ -17,7 +17,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $data = User::where('isadmin', false)->get();
+        $data = User::where('is_admin', false)->get();
         return view('petugas.index', compact('data'));
     }
     

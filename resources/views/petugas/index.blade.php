@@ -22,27 +22,31 @@
                         <thead class="bg-gray-50 dark:bg-gray-700">
                             <tr>
                                 <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                    class="px-6 py-3 text-left text-md font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                     Nama Petugas</th>
                                 <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                    class="px-6 py-3 text-left text-md font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                     Email</th>
                                 <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                    class="px-6 py-3 text-left text-md font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                                     Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                             @forelse ($data as $item)
                                 <tr>
-                                    <td class="px-6 py-4 text-center text-sm italic text-gray-500 dark:text-gray-400">{{ $item->name }}</td>
-                                    <td class="px-6 py-4 text-center text-sm italic text-gray-500 dark:text-gray-400">{{ $item->email }}</td>
-                                    <td class="px-6 py-4 text-center text-sm italic text-gray-500 dark:text-gray-400">button</td>
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                        {{ $item->name }}</td>
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                        {{ $item->email }}</td>
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400">button
+                                    </td>
                                 </tr>
                             @empty
-                                    <td colspan="3" class="px-6 py-4 text-center text-sm italic text-gray-500 dark:text-gray-400">
-                                        🫙 Belum ada data petugas
-                                    </td>
+                                <td colspan="3"
+                                    class="px-6 py-4 text-center text-sm italic text-gray-500 dark:text-gray-400">
+                                    🫙 Belum ada data petugas
+                                </td>
                             @endforelse
 
                         </tbody>
@@ -53,32 +57,29 @@
     </div>
 
     {{-- Modal Create Data Ruangan --}}
-    <dialog id="createRuanganModal" class="p-0 backdrop:bg-black/50 rounded-lg shadow-2xl dark:bg-gray-900">
-        <div class="p-6 w-[400px]">
+    <dialog id="tampilkanModal" class="p-0 backdrop:bg-black/50 rounded-lg shadow-2xl dark:bg-gray-900">
+        <div class="p-6 w-[600px]">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4 border-b pb-2 dark:border-gray-700">
-                Input Ruangan Baru</h3>
+                Input Data Petugas</h3>
             <form method="POST" action="#">
                 @csrf
                 <div class="space-y-4">
                     <div>
-                        <x-input-label for="kode_ruangan_r" value="Kode Ruangan" />
-                        <x-text-input id="kode_ruangan_r" name="kode_ruangan" type="text" class="mt-1 block w-full"
-                            placeholder="Contoh: R-01" required />
+                        <x-input-label for="name" :value="__('Nama Petugas')" />
+                        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
+                            :value="old('name')" required autofocus autocomplete="username" />
+                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
                     <div>
-                        <x-input-label for="nama_ruangan_r" value="Nama Ruangan" />
-                        <x-text-input id="nama_ruangan_r" name="nama_ruangan" type="text" class="mt-1 block w-full"
-                            required />
-                    </div>
-                    <div>
-                        <x-input-label for="deskripsi_r" value="Deskripsi" />
-                        <textarea id="deskripsi_r" name="deskripsi"
-                            class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"></textarea>
+                        <x-input-label for="email" :value="__('Email')" />
+                        <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
+                            :value="old('email')" required autofocus autocomplete="username" />
+                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
                 </div>
 
                 <div class="mt-6 flex justify-end gap-3">
-                    <button type="button" onclick="document.getElementById('createRuanganModal').close()"
+                    <button type="button" onclick="document.getElementById('tampilkanModal').close()"
                         class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
                         Batal
                     </button>

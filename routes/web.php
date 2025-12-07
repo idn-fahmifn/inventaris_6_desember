@@ -13,6 +13,7 @@ Route::get('/', function () {
 Route::prefix('admin')->middleware(['auth', 'verified', 'admin'])->group(function () {
    
     Route::get('/dashboard', [DashboardController::class, 'admin'])->name('dashboard');
+    Route::get('/list-petugas', [ProfileController::class, 'index'])->name('petugas.index');
     
 
 });
