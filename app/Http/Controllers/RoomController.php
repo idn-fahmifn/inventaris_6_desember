@@ -15,7 +15,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $data = Room::all();
+        $data = Room::paginate(5);
         $pic = User::where('is_admin', false)->get();
         return view('ruangan.index', compact('data', 'pic'));
     }
@@ -97,8 +97,10 @@ class RoomController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $data = Room::findOrFail($id);
+        $data->delete();
+        return redirect()->route('room.index');
     }
 }

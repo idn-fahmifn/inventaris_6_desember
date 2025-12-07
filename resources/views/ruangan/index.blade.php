@@ -14,7 +14,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6 min-h-[400px]">
 
                 <div class="overflow-x-auto">
                     {{-- Tabel untuk menampilkan data ruangan (kosong) --}}
@@ -44,7 +44,8 @@
                                         {{ $item->room_code }}</td>
                                     <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400">
                                         {{ $item->user->name }}</td>
-                                    <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400">button
+                                    <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400">
+                                        <a href="{{ route('room.show', $item->slug) }}" class="text-sm">detail</a>
                                     </td>
                                 </tr>
                             @empty
@@ -53,9 +54,11 @@
                                     ⚠️ Belum ada data ruangan
                                 </td>
                             @endforelse
-
                         </tbody>
                     </table>
+                    <div class="mt-4">
+                        {{ $data }}
+                    </div>
                 </div>
             </div>
         </div>
