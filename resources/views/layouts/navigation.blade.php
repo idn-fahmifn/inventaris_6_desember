@@ -10,7 +10,8 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
+                @if (Auth::user()->is_admin)
+
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
@@ -22,6 +23,21 @@
                         {{ __('Barang') }}
                     </x-nav-link>
                 </div>
+
+                @else
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('dashboard.user')" :active="request()->routeIs('dashboard.user')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('petugas.index.room')" :active="request()->routeIs('petugas.index.room')">
+                        {{ __('Ruangan Saya') }}
+                    </x-nav-link>
+                </div>
+                    
+                @endif
+
+                <!-- Navigation Links -->
+                
             </div>
 
             <!-- Settings Dropdown -->

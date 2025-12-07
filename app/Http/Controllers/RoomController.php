@@ -73,6 +73,12 @@ class RoomController extends Controller
         return view('ruangan.detail', compact('data', 'pic'));
     }
 
+    public function showPetugas($param)
+    {
+        $data = Room::where('slug', $param)->firstOrFail();
+        return view('petugas.detail-ruangan', compact('data'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
