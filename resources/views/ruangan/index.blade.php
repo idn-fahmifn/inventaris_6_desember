@@ -71,6 +71,17 @@
                         <x-input-error :messages="$errors->get('room_name')" class="mt-2" />
                     </div>
                     <div>
+                        <x-input-label for="user_id" :value="__('Penganggung Jawab Ruangan')" />
+                        <select name="user_id"
+                            class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                            <option value="">-Masukan Penanggung Jawab-</option>
+                            @foreach ($pic as $item)
+                                <option value="{{ $item->id }}"> {{ $item->name }} </option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('user_id')" class="mt-2" />
+                    </div>
+                    <div>
                         <x-input-label for="room_code" :value="__('Kode Ruangan')" />
                         <x-text-input id="room_code" class="block mt-1 w-full" type="number" name="room_code"
                             :value="old('room_code')" required autofocus autocomplete="room_code" />
@@ -78,7 +89,7 @@
                     </div>
                     <div>
                         <x-input-label for="description" :value="__('Deskripsi')" />
-                        <textarea id="deskripsi_r" name="deskripsi"
+                        <textarea id="deskripsi_r" name="description"
                             class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"></textarea>
                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
                     </div>
