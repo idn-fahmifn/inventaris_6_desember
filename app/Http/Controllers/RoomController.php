@@ -71,7 +71,8 @@ class RoomController extends Controller
     {
         $data = Room::where('slug', $param)->firstOrFail();
         $pic = User::where('is_admin', false)->get();
-        return view('ruangan.detail', compact('data', 'pic'));
+        $barang = Item::where('room_id', $data->id)->get();
+        return view('ruangan.detail', compact('data', 'pic', 'barang'));
     }
 
     public function showPetugas($param)
