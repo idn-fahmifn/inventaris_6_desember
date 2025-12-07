@@ -37,7 +37,7 @@ class ItemController extends Controller
         $request->validate([
             'item_name' => ['required', 'string', 'min:3', 'max:30'],
             'room_id' => ['required', 'integer', Rule::exists('rooms', 'id')],
-            'item_code' => ['required', 'numeric', 'min:0', 'max:9999'],
+            'item_code' => ['required', 'numeric', 'min:0', 'max:9999', 'unique:items,item_code'],
             'date_purchase' => ['required'],
             'image' => ['required', 'file', 'mimes:png,jpg,jpeg,svg,webp,heic'],
             'description' => ['required'],
@@ -51,7 +51,7 @@ class ItemController extends Controller
             'date_purchase' => $request->input('date_purchase'),
             'description' => $request->input('description'),
             'status' => $request->input('status'),
-            'slug' => Str::slug($request->prod_name) . random_int(0, 9999) // illuminate\support
+            'slug' => Str::slug($request->item_name) . random_int(0, 9999) // illuminate\support
         ];
         // kondisi saat ada nilai input file gambar
         if ($request->hasFile('image')) {
