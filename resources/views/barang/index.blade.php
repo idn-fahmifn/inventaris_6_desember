@@ -18,6 +18,9 @@
 
                 <div class="overflow-x-auto">
                     {{-- Tabel untuk menampilkan data ruangan (kosong) --}}
+
+                    
+
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                         <thead class="bg-gray-50 dark:bg-gray-700">
                             <tr>
@@ -43,7 +46,7 @@
                                     <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400">
                                         {{ $item->room_code }}</td>
                                     <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400">
-                                        {{ $item->user->name }}</td>
+                                        {{ $item->room->room_name }}</td>
                                     <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400">
                                         <a href="{{ route('room.show', $item->slug) }}" class="text-sm">detail</a>
                                     </td>
@@ -69,7 +72,7 @@
         <div class="p-6 w-[600px]">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4 border-b pb-2 dark:border-gray-700">
                 Input Data Barang</h3>
-            <form method="POST" action="{{ route('item.store') }}">
+            <form method="POST" action="{{ route('item.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="space-y-4">
                     <div>
@@ -106,15 +109,15 @@
                         <x-input-error :messages="$errors->get('item_code')" class="mt-2" />
                     </div>
                     <div>
-                        <x-input-label for="date_purhcase" :value="__('Tanggal Pembelian')" />
-                        <x-text-input id="date_purhcase" class="block mt-1 w-full" type="text" name="date_purhcase"
-                            :value="old('date_purhcase')" required autofocus autocomplete="date_purhcase" />
-                        <x-input-error :messages="$errors->get('date_purhcase')" class="mt-2" />
+                        <x-input-label for="date_purchase" :value="__('Tanggal Pembelian')" />
+                        <x-text-input id="date_purchase" class="block mt-1 w-full" type="date" name="date_purchase"
+                            :value="old('date_purchase')" required autofocus autocomplete="date_purchase" />
+                        <x-input-error :messages="$errors->get('date_purchase')" class="mt-2" />
                     </div>
                     <div>
                         <x-input-label for="image" :value="__('Gambar')" />
-                        <x-text-input id="image" class="block mt-1 w-full" type="file" name="image"
-                            :value="old('image')" required autofocus autocomplete="image" />
+                        <x-text-input id="image" class="block mt-1 w-full border p-6" type="file" name="image"
+                            :value="old('image')" accept="image/*" required autofocus autocomplete="image" />
                         <x-input-error :messages="$errors->get('image')" class="mt-2" />
                     </div>
                     <div>
