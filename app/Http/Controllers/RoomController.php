@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\Room;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -76,7 +77,8 @@ class RoomController extends Controller
     public function showPetugas($param)
     {
         $data = Room::where('slug', $param)->firstOrFail();
-        return view('petugas.detail-ruangan', compact('data'));
+        $barang = Item::where('room_id', $data->id)->get();
+        return view('petugas.detail-ruangan', compact('data', 'barang'));
     }
 
     /**

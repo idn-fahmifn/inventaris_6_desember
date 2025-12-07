@@ -40,7 +40,7 @@
                                     <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400">
                                         {{ $item->user->name }}</td>
                                     <td class="px-6 py-4 text-sm font-medium text-gray-500 dark:text-gray-400">
-                                        <a href="{{ route('room.show', $item->slug) }}" class="text-sm">detail</a>
+                                        <a href="{{ route('petugas.show.room', $item->slug) }}" class="text-sm">detail</a>
                                     </td>
                                 </tr>
                             @empty
