@@ -68,7 +68,7 @@
     </div>
 
     <x-modal name="show-edit" :show="$errors->userDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('item.update', $data->id) }}" class="p-6">
+        <form method="post" action="{{ route('item.update', $data->id) }}" enctype="multipart/form-data" class="p-6">
             @csrf
             @method('put')
 
@@ -76,14 +76,14 @@
                 <div>
                     <x-input-label for="item_name" :value="__('Nama Barang')" />
                     <x-text-input id="item_name" class="block mt-1 w-full" type="text" name="item_name"
-                        :value="old('item_name')" required autofocus autocomplete="item_name" />
+                        value="{{$data->item_name}}" required autofocus autocomplete="item_name" />
                     <x-input-error :messages="$errors->get('item_name')" class="mt-2" />
                 </div>
                 <div>
                     <x-input-label for="room_id" :value="__('Penyimpanan')" />
                     <select name="room_id"
                         class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                        <option value="">-Masukan Penanggung Jawab-</option>
+                        <option value="{{ $data->room_id }}">-{{ $data->room->room_name }}-</option>
                         @foreach ($room as $item)
                             <option value="{{ $item->id }}"> {{ $item->room_name }} </option>
                         @endforeach
@@ -94,6 +94,7 @@
                     <x-input-label for="status" :value="__('Status Kondisi Barang')" />
                     <select name="status"
                         class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                        <option value="{{ $data->status }}" class="uppercase">{{ $data->status }}</option>
                         <option value="good">Good</option>
                         <option value="maintenance">Maintenance</option>
                         <option value="broke">Broke</option>
@@ -102,26 +103,26 @@
                 </div>
                 <div>
                     <x-input-label for="item_code" :value="__('Kode Barang')" />
-                    <x-text-input id="item_code" class="block mt-1 w-full" type="number" name="item_code"
-                        :value="old('item_code')" required autofocus autocomplete="item_code" />
+                    <x-text-input id="item_code" value="{{ $data->item_code }}" class="block mt-1 w-full" type="number" name="item_code"
+                         required autofocus autocomplete="item_code" />
                     <x-input-error :messages="$errors->get('item_code')" class="mt-2" />
                 </div>
                 <div>
                     <x-input-label for="date_purchase" :value="__('Tanggal Pembelian')" />
                     <x-text-input id="date_purchase" class="block mt-1 w-full" type="date" name="date_purchase"
-                        :value="old('date_purchase')" required autofocus autocomplete="date_purchase" />
+                        value="{{ $data->date_purchase }}" required autofocus autocomplete="date_purchase" />
                     <x-input-error :messages="$errors->get('date_purchase')" class="mt-2" />
                 </div>
                 <div>
                     <x-input-label for="image" :value="__('Gambar')" />
                     <x-text-input id="image" class="block mt-1 w-full border p-6" type="file" name="image"
-                        :value="old('image')" accept="image/*" required autofocus autocomplete="image" />
+                         accept="image/*" autofocus autocomplete="image" />
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
                 <div>
                     <x-input-label for="description" :value="__('Deskripsi')" />
                     <textarea id="deskripsi_r" name="description"
-                        class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"></textarea>
+                        class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">{{ $data->description }}</textarea>
                     <x-input-error :messages="$errors->get('description')" class="mt-2" />
                 </div>
             </div>
