@@ -44,8 +44,8 @@
                                 </tr>
                             @empty
                                 <td colspan="3"
-                                    class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">
-                                ⚠️ Belum ada data petugas
+                                    class="px-6 py-4 text-center text-sm italic text-gray-500 dark:text-gray-400">
+                                    🫙 Belum ada data petugas
                                 </td>
                             @endforelse
 

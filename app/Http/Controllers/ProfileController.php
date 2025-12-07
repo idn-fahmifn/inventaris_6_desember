@@ -20,7 +20,27 @@ class ProfileController extends Controller
         $data = User::where('is_admin', false)->get();
         return view('petugas.index', compact('data'));
     }
-    
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+        ]);
+
+        $simpan = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => '12345678',
+            'is_admin' => false
+        ];
+
+        User::create($simpan);
+
+        return redirect()->route('petugas.index')->with('success', 'Petugas berhasil disimpan');
+
+    }
+
     public function edit(Request $request): View
     {
         return view('profile.edit', [
